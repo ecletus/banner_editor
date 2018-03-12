@@ -26,7 +26,7 @@ var (
 	mux                  = http.NewServeMux()
 	Server               = httptest.NewServer(mux)
 	db                   = utils.TestDB()
-	Admin                = admin.New(&qor.Config{DB: db})
+	Admin                = admin.New(&qor.NewConfig(db))
 	assetManagerResource *admin.Resource
 )
 

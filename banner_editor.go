@@ -60,7 +60,9 @@ type Element struct {
 }
 
 func init() {
-	admin.RegisterViewPath("github.com/qor/banner_editor/views")
+	qor.IfDev(func() {
+		admin.RegisterViewPath("github.com/qor/banner_editor/views")
+	})
 }
 
 // RegisterElement register a element
@@ -86,7 +88,7 @@ func (config *BannerEditorConfig) ConfigureQorMeta(metaor resource.Metaor) {
 			panic("BannerEditor: MediaLibrary can't be blank.")
 		} else {
 			urlMeta := config.MediaLibrary.GetMeta("BannerEditorUrl")
-			if getMediaLibraryResourceURLMethod(config.MediaLibrary.NewStruct()).IsNil() {
+			if getMediaLibraryResourceURLMethod(config.MediaLibrary.NewStruct(nil)).IsNil() {
 				panic("BannerEditor: MediaLibrary's struct doesn't have any field implement URL method, please refer media_library.MediaLibrary{}.")
 			}
 			if urlMeta == nil {

@@ -13,7 +13,7 @@ import (
 
 // New handle new setting page
 func New(context *admin.Context) {
-	setting := context.Resource.NewStruct().(QorBannerEditorSettingInterface)
+	setting := context.Resource.NewStruct(context.Site).(QorBannerEditorSettingInterface)
 	kind := context.Request.URL.Query().Get("kind")
 	if GetElement(kind) != nil {
 		setting.SetSerializableArgumentKind(kind)
@@ -27,7 +27,7 @@ func New(context *admin.Context) {
 func Create(context *admin.Context) {
 	var (
 		res     = context.Resource
-		result  = res.NewStruct()
+		result  = res.NewStruct(context.Site)
 		kind    = context.Request.Form.Get("QorResource.Kind")
 		element = GetElement(kind)
 	)
