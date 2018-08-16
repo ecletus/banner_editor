@@ -12,7 +12,7 @@ import (
 	"time"
 
 	"github.com/fatih/color"
-	"github.com/jinzhu/gorm"
+	"github.com/moisespsena-go/aorm"
 	"github.com/aghape/admin"
 	"github.com/aghape/banner_editor/test/config/bindatafs"
 	"github.com/aghape/media"
@@ -31,7 +31,7 @@ var (
 )
 
 type bannerEditorArgument struct {
-	gorm.Model
+	aorm.Model
 	Value string `gorm:"size:4294967295";`
 }
 

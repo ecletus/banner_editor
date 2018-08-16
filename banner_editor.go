@@ -6,7 +6,7 @@ import (
 	"html/template"
 	"reflect"
 
-	"github.com/jinzhu/gorm"
+	"github.com/moisespsena-go/aorm"
 	"github.com/moisespsena/go-assetfs"
 	"github.com/aghape/admin"
 	"github.com/aghape/aghape"
@@ -42,7 +42,7 @@ type QorBannerEditorSettingInterface interface {
 
 // QorBannerEditorSetting default setting model
 type QorBannerEditorSetting struct {
-	gorm.Model
+	aorm.Model
 	serializable_meta.SerializableMeta
 }
 
