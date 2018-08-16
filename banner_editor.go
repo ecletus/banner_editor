@@ -7,11 +7,11 @@ import (
 	"reflect"
 
 	"github.com/jinzhu/gorm"
-	"github.com/qor/admin"
-	"github.com/qor/assetfs"
-	"github.com/qor/qor"
-	"github.com/qor/qor/resource"
-	"github.com/qor/serializable_meta"
+	"github.com/moisespsena/go-assetfs"
+	"github.com/aghape/admin"
+	"github.com/aghape/aghape"
+	"github.com/aghape/aghape/resource"
+	"github.com/aghape/serializable_meta"
 )
 
 var (
@@ -20,10 +20,6 @@ var (
 	viewPaths                    []string
 	assetFileSystem              assetfs.Interface
 )
-
-func init() {
-	assetFileSystem = assetfs.AssetFS().NameSpace("banner_editor")
-}
 
 type BannerSize struct {
 	Width  int
@@ -57,12 +53,6 @@ type Element struct {
 	Template string
 	Resource *admin.Resource
 	Context  func(context *admin.Context, setting interface{}) interface{}
-}
-
-func init() {
-	qor.IfDev(func() {
-		admin.RegisterViewPath("github.com/qor/banner_editor/views")
-	})
 }
 
 // RegisterElement register a element
@@ -107,12 +97,11 @@ func (config *BannerEditorConfig) ConfigureQorMeta(metaor resource.Metaor) {
 			}
 		}
 
-		router := Admin.GetRouter()
 		res := config.SettingResource
-		router.Get(fmt.Sprintf("%v/new", res.ToParam()), New, &admin.RouteConfig{Resource: res})
-		router.Post(fmt.Sprintf("%v", res.ToParam()), Create, &admin.RouteConfig{Resource: res})
-		router.Put(fmt.Sprintf("%v/%v", res.ToParam(), res.ParamIDName()), Update, &admin.RouteConfig{Resource: res})
-		Admin.RegisterResourceRouters(res, "read", "update")
+		res.Router.Get("/new", admin.NewHandler(New, &admin.RouteConfig{Resource: res}))
+		res.Router.Post("/", admin.NewHandler(Create, &admin.RouteConfig{Resource: res}))
+		res.ObjectRouter.Put("/", admin.NewHandler(Update, &admin.RouteConfig{Resource: res}))
+		res.RegisterDefaultRouters("read", "update")
 
 		Admin.RegisterFuncMap("banner_editor_configure", func(config *BannerEditorConfig) string {
 			type element struct {
@@ -123,7 +112,7 @@ func (config *BannerEditorConfig) ConfigureQorMeta(metaor resource.Metaor) {
 			var (
 				selectedElements = registeredElements
 				elements         = []element{}
-				newElementURL    = router.Prefix + fmt.Sprintf("/%v/new", res.ToParam())
+				newElementURL    = res.GetAdmin().Router.Prefix() + fmt.Sprintf("/%v/new", res.ToParam())
 			)
 			if len(config.Elements) != 0 {
 				selectedElements = []*Element{}
@@ -144,7 +133,7 @@ func (config *BannerEditorConfig) ConfigureQorMeta(metaor resource.Metaor) {
 			}{
 				Elements:          elements,
 				ExternalStylePath: registeredExternalStylePaths,
-				EditURL:           fmt.Sprintf("%v/%v/:id/edit", router.Prefix, res.ToParam()),
+				EditURL:           fmt.Sprintf("%v/%v/:id/edit", res.GetAdmin().Router.Prefix(), res.ToParam()),
 				BannerSizes:       config.BannerSizes,
 			})
 			if err != nil {

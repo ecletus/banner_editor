@@ -4,11 +4,11 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"html/template"
 	"net/http"
 
-	"github.com/qor/admin"
-	"github.com/qor/responder"
+	"github.com/moisespsena/template/html/template"
+	"github.com/aghape/admin"
+	"github.com/aghape/responder"
 )
 
 // New handle new setting page
@@ -32,7 +32,7 @@ func Create(context *admin.Context) {
 		element = GetElement(kind)
 	)
 	if context.AddError(res.Decode(context.Context, result)); !context.HasError() {
-		context.AddError(res.CallSave(result, context.Context))
+		context.AddError(res.Save(result, context.Context))
 	}
 
 	c := element.Context(context, result)
@@ -46,7 +46,7 @@ func Create(context *admin.Context) {
 			context.Execute("new", result)
 		}).With([]string{"json"}, func() {
 			context.Writer.WriteHeader(admin.HTTPUnprocessableEntity)
-			context.Encode("index", map[string]interface{}{"errors": context.GetErrors()})
+			context.Encode(map[string]interface{}{"errors": context.GetErrors()}, "index")
 		}).Respond(context.Request)
 	} else {
 		responder.With("html", func() {
@@ -77,7 +77,7 @@ func Update(context *admin.Context) {
 		context.AddError(err)
 	} else {
 		if context.AddError(res.Decode(context.Context, result)); !context.HasError() {
-			context.AddError(res.CallSave(result, context.Context))
+			context.AddError(res.Save(result, context.Context))
 		}
 
 		c := element.Context(context, result)
@@ -92,7 +92,7 @@ func Update(context *admin.Context) {
 		responder.With("html", func() {
 			context.Execute("edit", result)
 		}).With([]string{"json", "xml"}, func() {
-			context.Encode("edit", map[string]interface{}{"errors": context.GetErrors()})
+			context.Encode(map[string]interface{}{"errors": context.GetErrors()}, "edit")
 		}).Respond(context.Request)
 	} else {
 		responder.With("html", func() {

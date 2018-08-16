@@ -13,13 +13,13 @@ import (
 
 	"github.com/fatih/color"
 	"github.com/jinzhu/gorm"
-	"github.com/qor/admin"
-	"github.com/qor/banner_editor/test/config/bindatafs"
-	"github.com/qor/media"
-	"github.com/qor/media/media_library"
-	"github.com/qor/qor"
-	"github.com/qor/qor/test/utils"
-	qor_utils "github.com/qor/qor/utils"
+	"github.com/aghape/admin"
+	"github.com/aghape/banner_editor/test/config/bindatafs"
+	"github.com/aghape/media"
+	"github.com/aghape/media/media_library"
+	"github.com/aghape/aghape"
+	"github.com/aghape/aghape/test/utils"
+	qor_utils "github.com/aghape/aghape/utils"
 )
 
 var (
@@ -37,11 +37,11 @@ type bannerEditorArgument struct {
 
 func init() {
 	// Migrate database
-	if err := db.DropTableIfExists(&QorBannerEditorSetting{}, &bannerEditorArgument{}, &media_library.MediaLibrary{}).Error; err != nil {
+	if err := db.DropTableIfExists(&QorBannerEditorSetting{}, &bannerEditorArgument{}, &media_library.QorMediaLibrary{}).Error; err != nil {
 		panic(err)
 	}
 	media.RegisterCallbacks(db)
-	db.AutoMigrate(&QorBannerEditorSetting{}, &bannerEditorArgument{}, &media_library.MediaLibrary{})
+	db.AutoMigrate(&QorBannerEditorSetting{}, &bannerEditorArgument{}, &media_library.QorMediaLibrary{})
 
 	// Banner Editor
 	type subHeaderSetting struct {
@@ -60,7 +60,7 @@ func init() {
 	buttonRes := Admin.NewResource(&buttonSetting{})
 	buttonRes.Meta(&admin.Meta{Name: "Text"})
 	buttonRes.Meta(&admin.Meta{Name: "Link"})
-	RegisterViewPath("github.com/qor/banner_editor/test/views")
+	RegisterViewPath("github.com/aghape/banner_editor/test/views")
 
 	RegisterElement(&Element{
 		Name:     "Sub Header",
@@ -82,7 +82,7 @@ func init() {
 	})
 
 	// Add asset resource
-	assetManagerResource = Admin.AddResource(&media_library.MediaLibrary{})
+	assetManagerResource = Admin.AddResource(&media_library.QorMediaLibrary{})
 	assetManagerResource.IndexAttrs("Title", "File")
 
 	bannerEditorResource := Admin.AddResource(&bannerEditorArgument{}, &admin.Config{Name: "Banner"})
@@ -94,7 +94,7 @@ func init() {
 	mux.Handle("/system/", qor_utils.FileServer(http.Dir("public")))
 
 	// Add dummy background image
-	image := media_library.MediaLibrary{}
+	image := media_library.QorMediaLibrary{}
 	file, err := os.Open("test/views/images/background.jpg")
 	if err != nil {
 		panic(err)

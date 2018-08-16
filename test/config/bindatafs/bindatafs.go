@@ -12,7 +12,7 @@ import (
 	"time"
 
 	"github.com/jteeuwen/go-bindata"
-	"github.com/qor/assetfs"
+	"github.com/aghape/assetfs"
 )
 
 type AssetFSInterface interface {
@@ -219,7 +219,7 @@ func (assetFS *nameSpacedBindataFS) PrependPath(path string) error {
 	return assetFS.registerPath(path, true)
 }
 
-func (assetFS *nameSpacedBindataFS) Asset(name string) ([]byte, error) {
+func (assetFS *nameSpacedBindataFS) Asset(name string) (*assetfs.Asset, error) {
 	name = strings.TrimPrefix(name, "/")
 	if len(_bindata) > 0 {
 		return Asset(filepath.Join(assetFS.nameSpace, name))
