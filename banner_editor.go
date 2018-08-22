@@ -9,8 +9,8 @@ import (
 	"github.com/moisespsena-go/aorm"
 	"github.com/moisespsena/go-assetfs"
 	"github.com/aghape/admin"
-	"github.com/aghape/aghape"
-	"github.com/aghape/aghape/resource"
+	"github.com/aghape/core"
+	"github.com/aghape/core/resource"
 	"github.com/aghape/serializable_meta"
 )
 
@@ -85,7 +85,7 @@ func (config *BannerEditorConfig) ConfigureQorMeta(metaor resource.Metaor) {
 				config.MediaLibrary.Meta(&admin.Meta{
 					Name: "BannerEditorUrl",
 					Type: "hidden",
-					Valuer: func(v interface{}, c *qor.Context) interface{} {
+					Valuer: func(v interface{}, c *core.Context) interface{} {
 						values := getMediaLibraryResourceURLMethod(v).Call([]reflect.Value{})
 						if len(values) > 0 {
 							return values[0]

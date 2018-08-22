@@ -17,16 +17,16 @@ import (
 	"github.com/aghape/banner_editor/test/config/bindatafs"
 	"github.com/aghape/media"
 	"github.com/aghape/media/media_library"
-	"github.com/aghape/aghape"
-	"github.com/aghape/aghape/test/utils"
-	qor_utils "github.com/aghape/aghape/utils"
+	"github.com/aghape/core"
+	"github.com/aghape/core/test/utils"
+	qor_utils "github.com/aghape/core/utils"
 )
 
 var (
 	mux                  = http.NewServeMux()
 	Server               = httptest.NewServer(mux)
 	db                   = utils.TestDB()
-	Admin                = admin.New(&qor.NewConfig(db))
+	Admin                = admin.New(&core.NewConfig(db))
 	assetManagerResource *admin.Resource
 )
 
