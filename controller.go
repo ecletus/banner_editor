@@ -32,7 +32,7 @@ func Create(context *admin.Context) {
 		element = GetElement(kind)
 	)
 	if context.AddError(res.Decode(context.Context, result)); !context.HasError() {
-		context.AddError(res.Save(result, context.Context))
+		context.AddError(res.Crud(context.Context).Create(result))
 	}
 
 	c := element.Context(context, result)
@@ -77,7 +77,7 @@ func Update(context *admin.Context) {
 		context.AddError(err)
 	} else {
 		if context.AddError(res.Decode(context.Context, result)); !context.HasError() {
-			context.AddError(res.Save(result, context.Context))
+			context.AddError(res.Crud(context.Context).Update(result))
 		}
 
 		c := element.Context(context, result)
