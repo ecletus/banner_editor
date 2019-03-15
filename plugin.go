@@ -14,12 +14,12 @@ type Plugin struct {
 }
 
 func (p *Plugin) OnRegister() {
-	db.Events(p).DBOnMigrateGorm(func(e *db.GormDBEvent) error {
-		return e.DB.AutoMigrate(&QorBannerEditorSetting{}).Error
+	db.Events(p).DBOnMigrate(func(e *db.DBEvent) error {
+		return e.AutoMigrate(&QorBannerEditorSetting{}).Error
 	})
 }
 
 func (p *Plugin) Init(options *plug.Options) error {
-	SetAssetFS(assets.TemplateFS(options.GetInterface(p.AssetFSKey).(api.Interface)).NameSpace("banner_editor"))
+	SetAssetFS(assets.TemplateFS(options.GetInterface(p.AssetFSKey).(assetfsapi.Interface)).NameSpace("banner_editor"))
 	return nil
 }

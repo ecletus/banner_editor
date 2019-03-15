@@ -6,12 +6,12 @@ import (
 	"html/template"
 	"reflect"
 
-	"github.com/moisespsena-go/aorm"
-	"github.com/moisespsena/go-assetfs"
 	"github.com/aghape/admin"
 	"github.com/aghape/core"
 	"github.com/aghape/core/resource"
 	"github.com/aghape/serializable_meta"
+	"github.com/moisespsena-go/aorm"
+	"github.com/moisespsena/go-assetfs"
 )
 
 var (
@@ -101,7 +101,7 @@ func (config *BannerEditorConfig) ConfigureQorMeta(metaor resource.Metaor) {
 		res.Router.Get("/new", admin.NewHandler(New, &admin.RouteConfig{Resource: res}))
 		res.Router.Post("/", admin.NewHandler(Create, &admin.RouteConfig{Resource: res}))
 		res.ObjectRouter.Put("/", admin.NewHandler(Update, &admin.RouteConfig{Resource: res}))
-		res.RegisterDefaultRouters("read", "update")
+		res.RegisterDefaultRouters(admin.A_READ, admin.A_UPDATE)
 
 		Admin.RegisterFuncMap("banner_editor_configure", func(config *BannerEditorConfig) string {
 			type element struct {
@@ -133,7 +133,7 @@ func (config *BannerEditorConfig) ConfigureQorMeta(metaor resource.Metaor) {
 			}{
 				Elements:          elements,
 				ExternalStylePath: registeredExternalStylePaths,
-				EditURL:           fmt.Sprintf("%v/%v/:id/edit", res.GetAdmin().Router.Prefix(), res.ToParam()),
+				EditURL:           fmt.Sprintf("%v/%v/:id/edit", res.GetAdmin().Config.MountPath, res.ToParam()),
 				BannerSizes:       config.BannerSizes,
 			})
 			if err != nil {
