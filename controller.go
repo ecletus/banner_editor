@@ -7,8 +7,8 @@ import (
 	"net/http"
 
 	"github.com/moisespsena/template/html/template"
-	"github.com/aghape/admin"
-	"github.com/aghape/responder"
+	"github.com/ecletus/admin"
+	"github.com/ecletus/responder"
 )
 
 // New handle new setting page

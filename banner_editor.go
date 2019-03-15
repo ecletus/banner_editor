@@ -6,10 +6,10 @@ import (
 	"html/template"
 	"reflect"
 
-	"github.com/aghape/admin"
-	"github.com/aghape/core"
-	"github.com/aghape/core/resource"
-	"github.com/aghape/serializable_meta"
+	"github.com/ecletus/admin"
+	"github.com/ecletus/core"
+	"github.com/ecletus/core/resource"
+	"github.com/ecletus/serializable_meta"
 	"github.com/moisespsena-go/aorm"
 	"github.com/moisespsena/go-assetfs"
 )

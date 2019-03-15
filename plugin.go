@@ -1,9 +1,9 @@
 package banner_editor
 
 import (
-	"github.com/aghape/assets"
-	"github.com/aghape/db"
-	"github.com/aghape/plug"
+	"github.com/ecletus/assets"
+	"github.com/ecletus/db"
+	"github.com/ecletus/plug"
 	"github.com/moisespsena/go-assetfs/api"
 )
 

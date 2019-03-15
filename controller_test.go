@@ -13,13 +13,13 @@ import (
 
 	"github.com/fatih/color"
 	"github.com/moisespsena-go/aorm"
-	"github.com/aghape/admin"
-	"github.com/aghape/banner_editor/test/config/bindatafs"
-	"github.com/aghape/media"
-	"github.com/aghape/media/media_library"
-	"github.com/aghape/core"
-	"github.com/aghape/core/test/utils"
-	qor_utils "github.com/aghape/core/utils"
+	"github.com/ecletus/admin"
+	"github.com/ecletus/banner_editor/test/config/bindatafs"
+	"github.com/ecletus/media"
+	"github.com/ecletus/media/media_library"
+	"github.com/ecletus/core"
+	"github.com/ecletus/core/test/utils"
+	qor_utils "github.com/ecletus/core/utils"
 )
 
 var (
@@ -60,7 +60,7 @@ func init() {
 	buttonRes := Admin.NewResource(&buttonSetting{})
 	buttonRes.Meta(&admin.Meta{Name: "Text"})
 	buttonRes.Meta(&admin.Meta{Name: "Link"})
-	RegisterViewPath("github.com/aghape/banner_editor/test/views")
+	RegisterViewPath("github.com/ecletus/banner_editor/test/views")
 
 	RegisterElement(&Element{
 		Name:     "Sub Header",
