@@ -11,7 +11,7 @@ import (
 	"github.com/ecletus/core/resource"
 	"github.com/ecletus/serializable_meta"
 	"github.com/moisespsena-go/aorm"
-	"github.com/moisespsena/go-assetfs"
+	"github.com/moisespsena-go/assetfs"
 )
 
 var (

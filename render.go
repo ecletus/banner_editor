@@ -3,7 +3,7 @@ package banner_editor
 import (
 	"bytes"
 	"path/filepath"
-	"github.com/moisespsena/go-assetfs"
+	"github.com/moisespsena-go/assetfs"
 	"github.com/moisespsena/template/html/template"
 )
 

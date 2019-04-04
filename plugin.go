@@ -4,7 +4,7 @@ import (
 	"github.com/ecletus/assets"
 	"github.com/ecletus/db"
 	"github.com/ecletus/plug"
-	"github.com/moisespsena/go-assetfs/api"
+	"github.com/moisespsena-go/assetfs/api"
 )
 
 type Plugin struct {
