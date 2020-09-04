@@ -100,7 +100,7 @@ func (config *BannerEditorConfig) ConfigureQorMeta(metaor resource.Metaor) {
 		res := config.SettingResource
 		res.Router.Get("/new", admin.NewHandler(New, &admin.RouteConfig{Resource: res}))
 		res.Router.Post("/", admin.NewHandler(Create, &admin.RouteConfig{Resource: res}))
-		res.ObjectRouter.Put("/", admin.NewHandler(Update, &admin.RouteConfig{Resource: res}))
+		res.ItemRouter.Put("/", admin.NewHandler(Update, &admin.RouteConfig{Resource: res}))
 		res.RegisterDefaultRouters(admin.A_READ, admin.A_UPDATE)
 
 		Admin.RegisterFuncMap("banner_editor_configure", func(config *BannerEditorConfig) string {
